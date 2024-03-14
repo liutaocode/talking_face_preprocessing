@@ -1,0 +1,4 @@
+weights/
+hubert_features/
+*.png
+*.npy
