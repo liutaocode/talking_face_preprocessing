@@ -34,7 +34,7 @@ We strongly recommend using the ffmpeg command for this step, as our version is 
 ## Face Landmark Detection
 The purpose of this step is to obtain 68 2D facial landmarks, as illustrated in the figure below. For reference, please see the image provided.
 
-<img src='asserts/landmarks.png' width=70% />
+<img src='asserts/landmarks.png' width=50% />
 
 
 Data flow: from `data_processing/specified_formats/videos/video_frames/` to `data_processing/specified_formats/videos/landmarks/`
