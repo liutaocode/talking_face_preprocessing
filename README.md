@@ -113,7 +113,7 @@ Facial orientation includes 3D poses: pitch, yaw, and roll.
 
 <img src='asserts/facial_orientation.png' width=50% />
 
-Follow the instructions [3DDFA_V2](https://github.com/cleardusk/3DDFA_V2) and build the environment. Copy the path link to `.3ddfav2_path`.
+Follow the instructions [3DDFA_V2](https://github.com/cleardusk/3DDFA_V2) and build the environment. Copy the path link to `.3ddfav2_path` and run the following codes to get pose angles.
 
 ```bash
 
@@ -127,7 +127,7 @@ python extract_face_orientation.py \
 ![cropped face pose](asserts/FAzSK8PLmGI_pose.gif)
 
 
-Other Tools (we have not tested) can also be used to extract facial orientation: [OpenFace](https://github.com/TadasBaltrusaitis/OpenFace), [GAIA](https://gaiavatar.github.io/gaia/) mentioned that they uses [3DDFA](https://github.com/cleardusk/3DDFA), [EMO](https://humanaigc.github.io/emote-portrait-alive/) utlizes [mediapipe](https://github.com/google/mediapipe/) and get pose speed.
+Other Tools (we have not tested) can also be used to extract facial orientation: [OpenFace](https://github.com/TadasBaltrusaitis/OpenFace), [GAIA](https://gaiavatar.github.io/gaia/) mentioned that they uses [3DDFA](https://github.com/cleardusk/3DDFA), [EMO](https://humanaigc.github.io/emote-portrait-alive/) utlizes [mediapipe](https://github.com/google/mediapipe/) and get pose speed. [DAE-talker](https://arxiv.org/abs/2303.17550) utlizes [this tool](https://pypi.org/project/headpose/).
 
 ## (Optional) Facial Action Unit (FAU) Extraction 
 
