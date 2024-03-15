@@ -127,7 +127,7 @@ python extract_face_orientation.py \
 ![cropped face pose](asserts/FAzSK8PLmGI_pose.gif)
 
 
-Other Tools (we have not tested) can also be used to extract facial orientation: [OpenFace](https://github.com/TadasBaltrusaitis/OpenFace), [GAIA](https://gaiavatar.github.io/gaia/) mentioned that they uses [3DDFA](https://github.com/cleardusk/3DDFA), [EMO](https://humanaigc.github.io/emote-portrait-alive/) utlizes [mediapipe](https://github.com/google/mediapipe/) and get pose speed. [DAE-talker](https://arxiv.org/abs/2303.17550) utlizes [this tool](https://pypi.org/project/headpose/).
+Other Tools (we have not tested) can also be used to extract facial orientation: [OpenFace](https://github.com/TadasBaltrusaitis/OpenFace). Besides, [GAIA](https://gaiavatar.github.io/gaia/) mentioned that they uses [3DDFA](https://github.com/cleardusk/3DDFA). [EMO](https://humanaigc.github.io/emote-portrait-alive/) utlizes [mediapipe](https://github.com/google/mediapipe/) and get pose speed. [DAE-talker](https://arxiv.org/abs/2303.17550) utlizes [this tool](https://pypi.org/project/headpose/).
 
 ## (Optional) Facial Action Unit (FAU) Extraction 
 
