@@ -39,7 +39,7 @@ def main():
     parser.add_argument("--convert_video", type=bool, default=True, help="Enable video conversion to 25fps.")
     parser.add_argument("--convert_audio", type=bool, default=True, help="Enable audio conversion to 16kHz.")
     parser.add_argument("--extract_frames", type=bool, default=True, help="Enable frame extraction to PNG format.")
-    parser.add_argument("--source_folder", type=str, default='data_processing/raw_data/', help="Source folder path.")
+    parser.add_argument("--source_folder", type=str, default='data_processing/cropped_faces/', help="Source folder path.")
     parser.add_argument("--video_target_folder", type=str, default='data_processing/specified_formats/videos/videos_25fps/', help="Target folder path for videos.")
     parser.add_argument("--audio_target_folder", type=str, default='data_processing/specified_formats/audios/audios_16k/', help="Target folder path for audios.")
     parser.add_argument("--frames_target_folder", type=str, default='data_processing/specified_formats/videos/video_frames/', help="Target folder path for video frames.")

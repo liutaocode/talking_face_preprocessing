@@ -4,6 +4,7 @@ Current support the following features:
 
 * Face Detection
 * Landmark Extraction
+* Face Angle Extraction
 * Facial Action Unit (FAU) Extraction
 * Audio Feature Extraction
 
@@ -12,6 +13,9 @@ Current support the following features:
 If the downloaded video is a full-frame image, please first use [scene detection](https://github.com/Breakthrough/PySceneDetect) or some filtering methods to obtain a video segment with only one face in the video. The specific example can refer to the output results of the [HDTF](https://github.com/MRzzm/HDTF) dataset.
 
 Upon completion of this step, you will have obtained the raw video data. An example of such data can be found at `data_processing/raw_data/FAzSK8PLmGI.mp4`.
+
+![cropped face sample](asserts/FAzSK8PLmGI_raw.gif)
+
 
 ## Facial Part Cropping
 
@@ -33,9 +37,17 @@ python extract_cropped_faces.py \
 We strongly recommend using the ffmpeg command for this step, as our version is `5.0.1`. Using other modules such as opencv may result in dropped frames, which can cause the audio and video frames to not align accurately.
 
 
-1. All videos file are converted to `25` frame-per-seconds (fps), from `data_processing/raw_data/` to `data_processing/specified_formats/videos/videos_25fps/`
-2. The coresponding audio tracks are converted to the fixed sampling rate: `16,0000`, from `data_processing/raw_data` to `data_processing/specified_formats/audios/audios_16k/`
+1. All videos file are converted to `25` frame-per-seconds (fps), from `data_processing/cropped_faces/` to `data_processing/specified_formats/videos/videos_25fps/`
+2. The coresponding audio tracks are converted to the fixed sampling rate: `16k`, from `data_processing/raw_data` to `data_processing/specified_formats/audios/audios_16k/`
 3. Video_frames will be extracted into `png` format, from `data_processing/specified_formats/videos/videos_25fps/` to `data_processing/specified_formats/videos/video_frames/`. The default frame filename will starts from `000001.png`.
+
+Run:
+
+```bash
+
+python extract_raw_video_data.py
+
+```
 
 
 ## Face Landmark Detection
@@ -66,11 +78,33 @@ Landmarks are generated into a text file with the same name as the video. Each l
 
 ```
 
+## Face Orientation Angles
+
+Facial orientation includes 3D poses: pitch, yaw, and roll.
+
+<img src='asserts/facial_orientation.png' width=50% />
+
+Follow the instructions [3DDFA_V2](https://github.com/cleardusk/3DDFA_V2) and build the environment. Copy the path link to `.3ddfav2_path`.
+
+```bash
+
+python extract_face_orientation.py \
+    --video_frames_dir 'data_processing/specified_formats/videos/video_frames/' \
+    --visualization_dir 'data_processing/specified_formats/videos/pose_orientations/visualization/' \
+    --pose_data_dir 'data_processing/specified_formats/videos/pose_orientations/pose_data/'
+
+```
+
+![cropped face pose](asserts/FAzSK8PLmGI_pose.gif)
+
+
+Other Tools (we have not tested) can also be used to extract facial orientation: [OpenFace](https://github.com/TadasBaltrusaitis/OpenFace), [GAIA](https://gaiavatar.github.io/gaia/) mentioned that they uses [3DDFA](https://github.com/cleardusk/3DDFA), [EMO](https://humanaigc.github.io/emote-portrait-alive/) utlizes [mediapipe](https://github.com/google/mediapipe/) and get pose speed.
+
 ## (Optional) Facial Action Unit (FAU) Extraction 
 
-You can skip this stage if you do not need it.
+You can skip this stage if you do not need it. [AU definition docs](https://www.cs.cmu.edu/~face/facs.htm)
 
-This part is based on [OpenFace](https://github.com/TadasBaltrusaitis/OpenFace). We recommend runing the code in [docker](https://github.com/TadasBaltrusaitis/OpenFace/wiki/Docker) and follow the command from [Openface wiki](https://github.com/TadasBaltrusaitis/OpenFace/wiki/Command-line-arguments).
+This part is based on [OpenFace](https://github.com/TadasBaltrusaitis/OpenFace). We recommend runing the code in [docker](https://github.com/TadasBaltrusaitis/OpenFace/wiki/Docker) and follow the command from [Openface wiki](https://github.com/TadasBaltrusaitis/OpenFace/wiki/Command-line-arguments). 
 
 
 After having lanuched the docker instance, run:
@@ -99,14 +133,13 @@ python extract_audio_features.py \
 
 * The purpose of padding_to_align_audio is to pad the end of the audio to match the dimensionality, with the goal of maintaining consistency with video frames for convenient training.
 * The result shape is (25, T, 1024), 25 means all hidden layers including the one audio feature extraction + 24 hidden layers. you can change code get specific layers for training.
-* The purpose for extract all layers is that we trained on `weighted sum`` strategies in our project.
+* The purpose for extract all layers is that we trained on `weighted sum`` strategies in [this project](https://github.com/liutaocode/DiffDub).
 * Currently, we only have tested feature extraction on hubert model.
 * If you want to extract MFCC feature, you can use `python_speech_features`.
 
 
 ## TODO lists
 
-- [ ] Face Angle/Speed Extraction
 - [ ] Add detailed Environment Config
 - [ ] Visualized Jupyter Code
 - [ ] Scene Detection
@@ -118,3 +151,4 @@ python extract_audio_features.py \
 * https://github.com/TencentGameMate/chinese_speech_pretrain
 * https://github.com/DefTruth/torchlm
 * https://github.com/TadasBaltrusaitis/OpenFace
+* https://github.com/cleardusk/3DDFA_V2
