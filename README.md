@@ -2,7 +2,8 @@
 
 Current support the following features:
 
-* Face Detection
+* Scene Detection
+* Face Cropping
 * Landmark Extraction
 * Face Angle Extraction
 * Facial Action Unit (FAU) Extraction
@@ -11,7 +12,16 @@ Current support the following features:
 
 ## (Optional) Scene Detection
 
-If the downloaded video is a full-frame image, please first use [scene detection](https://github.com/Breakthrough/PySceneDetect) or some filtering methods to obtain a video segment with only one face in the video. The specific example can refer to the output results of the [HDTF](https://github.com/MRzzm/HDTF) dataset.
+If the downloaded video is a full-frame image, please first use [scene detection](https://github.com/Breakthrough/PySceneDetect) to split the videos to avoid vast scene change. 
+
+You can refer to the following code:
+
+```bash
+python extract_scenes.py
+```
+
+
+Then some filtering methods or manually filtering to obtain a video segment with only one face in the video. The specific example can refer to the output results of the [HDTF](https://github.com/MRzzm/HDTF) dataset.
 
 Upon completion of this step, you will have obtained the raw video data. An example of such data can be found at `data_processing/raw_data/FAzSK8PLmGI.mp4`.
 
@@ -145,7 +155,6 @@ python extract_audio_features.py \
 
 - [ ] Add detailed Environment Config
 - [ ] Visualized Jupyter Code
-- [ ] Scene Detection
 
 
 ## Acknowledgements

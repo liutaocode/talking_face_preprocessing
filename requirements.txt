@@ -2,4 +2,5 @@ torch==1.11.0
 soundfile==0.10.3
 python==3.9.0 
 transformers==4.27.0
+scenedetect
 opencv-python

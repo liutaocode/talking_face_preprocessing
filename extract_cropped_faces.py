@@ -9,6 +9,9 @@ import os
 import numpy as np
 
 def main(from_dir_prefix, output_dir_prefix, expanded_ratio):
+    
+    os.makedirs(output_dir_prefix, exist_ok=True)
+    
     device = torch.device("cuda:0")
     torchlm.runtime.bind(faceboxesv2(device=device))
 
@@ -21,6 +24,9 @@ def main(from_dir_prefix, output_dir_prefix, expanded_ratio):
     for mp4_name in tqdm(os.listdir(from_dir_prefix)):
         from_mp4_file_path = os.path.join(from_dir_prefix, mp4_name)
         to_mp4_file_path = os.path.join(output_dir_prefix, mp4_name)
+        
+        if os.path.exists(to_mp4_file_path):
+            continue
 
         video = cv2.VideoCapture(from_mp4_file_path)
         index = 0
@@ -47,6 +53,10 @@ def main(from_dir_prefix, output_dir_prefix, expanded_ratio):
             y_center_lists.append(y_center)
             width_lists.append(x2 - x1)
             height_lists.append(y2 - y1)
+            
+        if not x_center_lists or not y_center_lists or not width_lists or not height_lists:
+            print(f"Face may not exist, please check the video: {mp4_name}")
+            continue
 
         x_center_lists.sort(), y_center_lists.sort(), width_lists.sort(), height_lists.sort()
         x_center = x_center_lists[int(len(x_center_lists) / 2)]
