@@ -1,5 +1,12 @@
 # Feature Extraction for Talking Face
 
+Current support the following features:
+
+* Face Detection
+* Landmark Extraction
+* Facial Action Unit (FAU) Extraction
+* Audio Feature Extraction
+
 ## (Optional) Scene Detection
 
 If the downloaded video is a full-frame image, please first use [scene detection](https://github.com/Breakthrough/PySceneDetect) or some filtering methods to obtain a video segment with only one face in the video. The specific example can refer to the output results of the [HDTF](https://github.com/MRzzm/HDTF) dataset.
@@ -59,6 +66,21 @@ Landmarks are generated into a text file with the same name as the video. Each l
 
 ```
 
+## (Optional) Facial Action Unit (FAU) Extraction 
+
+You can skip this stage if you do not need it.
+
+This part is based on [OpenFace](https://github.com/TadasBaltrusaitis/OpenFace). We recommend runing the code in [docker](https://github.com/TadasBaltrusaitis/OpenFace/wiki/Docker) and follow the command from [Openface wiki](https://github.com/TadasBaltrusaitis/OpenFace/wiki/Command-line-arguments).
+
+
+After having lanuched the docker instance, run:
+
+```
+python extract_action_units.py \
+  --from_dir_path 'data_processing/specified_formats/videos/video_frames/' \
+  --to_dir_path 'data_processing/specified_formats/videos/facial_action_units/'
+```
+
 ## Audio Feature Extraction
 
 Before extraction, please make sure that all audio files have a sampling rate of `16k` Hz. and download the weights from [URL](https://github.com/TencentGameMate/chinese_speech_pretrain) and put them into weights dir. Although this model was pre-trained on 10,000 hours of Chinese data as unsupervised training data, we have also found that it can generalize to other languages as well.
@@ -86,6 +108,8 @@ python extract_audio_features.py \
 
 - [ ] Face Angle/Speed Extraction
 - [ ] Add detailed Environment Config
+- [ ] Visualized Jupyter Code
+- [ ] Scene Detection
 
 
 ## Acknowledgements
@@ -93,3 +117,4 @@ python extract_audio_features.py \
 * https://github.com/MRzzm/HDTF
 * https://github.com/TencentGameMate/chinese_speech_pretrain
 * https://github.com/DefTruth/torchlm
+* https://github.com/TadasBaltrusaitis/OpenFace

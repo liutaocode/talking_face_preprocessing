@@ -1,0 +1,10 @@
+Input:data_processing/specified_formats/videos/video_frames/FAzSK8PLmGI
+Input full path:/working/codes/basic/preprocessing_for_digital_human/data_processing/specified_formats/videos/video_frames/FAzSK8PLmGI
+Camera parameters:875,875,640,360
+Output csv:FAzSK8PLmGI.csv
+Gaze: 0
+AUs: 1
+Landmarks 2D: 0
+Landmarks 3D: 0
+Pose: 0
+Shape parameters: 0
