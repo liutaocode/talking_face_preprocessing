@@ -12,18 +12,28 @@ Current support the following features:
 
 ## (Optional) Scene Detection
 
-If the downloaded video is a full-frame image, please first use [scene detection](https://github.com/Breakthrough/PySceneDetect) to split the videos to avoid vast scene change. 
+If the downloaded video is a full-frame image (face occupies a small portion), please first use [scene detection](https://github.com/Breakthrough/PySceneDetect) to split the videos to avoid vast scene change. 
 
 You can refer to the following code:
 
 ```bash
-python extract_scenes.py
+python extract_scenes.py \
+  --from_directory  '/path/to/before_scene_detected/' \
+  --output_directory '/path/to/after_scene_detected/'
+```
+
+Subsequent filtering can be done based on some rough rules, such as removing files that are less than two seconds long, have an incorrect file format, or have empty file size.
+
+```bash
+python filter_videos_rough.py \
+  --before_filtering_dir '/path/to/before_filtering/' \
+  --after_filtering_dir '/path/to/after_filtering/' \
+  --min_duration 2 \
+  --min_size 10 
 ```
 
 
-Then some filtering methods or manually filtering to obtain a video segment with only one face in the video. The specific example can refer to the output results of the [HDTF](https://github.com/MRzzm/HDTF) dataset.
-
-Upon completion of this step, you will have obtained the raw video data. An example of such data can be found at `data_processing/raw_data/FAzSK8PLmGI.mp4`.
+Upon completion of this step, you will have obtained the raw video data. An example of such data can be found at `data_processing/raw_data/FAzSK8PLmGI.mp4` or the [HDTF](https://github.com/MRzzm/HDTF) dataset.
 
 
 <img src='asserts/full_video.png' width=50% />
@@ -58,10 +68,16 @@ Run:
 
 ```bash
 
-python extract_raw_video_data.py
+python extract_raw_video_data.py \
+  --source_folder 'data_processing/cropped_faces/' \
+  --video_target_folder 'data_processing/specified_formats/videos/videos_25fps/' \
+  --audio_target_folder 'data_processing/specified_formats/audios/audios_16k/' \
+  --frames_target_folder 'data_processing/specified_formats/videos/video_frames/' \
+  --convert_video True \
+  --convert_audio True \
+  --extract_frames True
 
 ```
-
 
 ## Face Landmark Detection
 The purpose of this step is to obtain 68 2D facial landmarks, as illustrated in the figure below. For reference, please see the image provided.

@@ -4,3 +4,4 @@ python==3.9.0
 transformers==4.27.0
 scenedetect
 opencv-python
+moviepy

@@ -23,7 +23,7 @@ def split_video_into_scenes(video_path, output_directory, threshold):
             return
         shutil.copy(video_path, output_file)
     else:
-        output_file = output_directory + '$VIDEO_NAME-Scene-$SCENE_NUMBER.mp4'
+        output_file = output_directory + '/$VIDEO_NAME-Scene-$SCENE_NUMBER.mp4'
         if os.path.exists(output_file):
             return
         split_video_ffmpeg(video_path, scene_list, output_file_template=output_file, arg_override='-r 25 -map 0 -c:v libx264 -preset slow -b:v 6000k -c:a aac', show_progress=True)
