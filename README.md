@@ -8,6 +8,7 @@ Current support the following features:
 * Facial Action Unit (FAU) Extraction
 * Audio Feature Extraction
 
+
 ## (Optional) Scene Detection
 
 If the downloaded video is a full-frame image, please first use [scene detection](https://github.com/Breakthrough/PySceneDetect) or some filtering methods to obtain a video segment with only one face in the video. The specific example can refer to the output results of the [HDTF](https://github.com/MRzzm/HDTF) dataset.
@@ -134,8 +135,8 @@ python extract_audio_features.py \
 ```
 
 * The purpose of padding_to_align_audio is to pad the end of the audio to match the dimensionality, with the goal of maintaining consistency with video frames for convenient training.
-* The result shape is (25, T, 1024), 25 means all hidden layers including the one audio feature extraction + 24 hidden layers. you can change code get specific layers for training.
-* The purpose for extract all layers is that we trained on `weighted sum`` strategies in [this project](https://github.com/liutaocode/DiffDub).
+* The result shape is `(25, T, 1024)`, 25 means all hidden layers including the one audio feature extraction plus 24 hidden layers. You can change code get specific layers, such as last layer, for training.
+* The purpose for extract all layers is that we trained on `weighted sum` strategies in [this project](https://github.com/liutaocode/DiffDub).
 * Currently, we only have tested feature extraction on hubert model.
 * If you want to extract MFCC feature, you can use `python_speech_features`.
 
