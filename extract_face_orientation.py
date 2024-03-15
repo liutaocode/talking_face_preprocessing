@@ -94,6 +94,9 @@ def main(args):
             if i == 0:
                 # the first frame, detect face, here we only use the first face, you can change depending on your need
                 boxes = face_boxes(frame_bgr)
+                if len(boxes) == 0 :
+                    print('f{clip_name} breaks at frame {i}: no face detected')
+                    break
                 boxes = [boxes[0]]
                 param_lst, roi_box_lst, _ = tddfa(frame_bgr, boxes)
                 ver = tddfa.recon_vers(param_lst, roi_box_lst, dense_flag=dense_flag)[0]
@@ -108,6 +111,9 @@ def main(args):
                 # todo: add confidence threshold to judge the tracking is failed
                 if abs(roi_box[2] - roi_box[0]) * abs(roi_box[3] - roi_box[1]) < 2020:
                     boxes = face_boxes(frame_bgr)
+                    if len(boxes) == 0 :
+                        print('f{clip_name} breaks at frame {i}: no face detected')
+                        break
                     boxes = [boxes[0]]
                     param_lst, roi_box_lst , _= tddfa(frame_bgr, boxes)
 
