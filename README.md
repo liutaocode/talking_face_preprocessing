@@ -15,7 +15,7 @@ If the downloaded video is a full-frame image, please first use [scene detection
 Upon completion of this step, you will have obtained the raw video data. An example of such data can be found at `data_processing/raw_data/FAzSK8PLmGI.mp4`.
 
 
-<img src='asserts/full_video.jpg' width=40% />
+<img src='asserts/full_video.png' width=50% />
 
 ## Facial Part Cropping
 
