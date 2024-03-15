@@ -12,7 +12,11 @@ Current support the following features:
 
 ## (Optional) Scene Detection
 
-If the downloaded video is a full-frame image (face occupies a small portion), please first use [scene detection](https://github.com/Breakthrough/PySceneDetect) to split the videos to avoid vast scene change. 
+<img src='asserts/full_video.png' width=60% />
+
+If your dataset is downloaded from the web, it may consist of full-frame images (where the face occupies a small portion) and may include non-continuous frames.
+
+Please first use [scene detection](https://github.com/Breakthrough/PySceneDetect) to split the videos to avoid vast scene change.
 
 You can refer to the following code:
 
@@ -32,11 +36,9 @@ python filter_videos_rough.py \
   --min_size 10 
 ```
 
-
 Upon completion of this step, you will have obtained the raw video data. An example of such data can be found at `data_processing/raw_data/FAzSK8PLmGI.mp4`. The goal of this step is to build a dataset similar to the [HDTF](https://github.com/MRzzm/HDTF) dataset.
 
 
-<img src='asserts/full_video.png' width=60% />
 
 ## Facial Part Cropping
 
