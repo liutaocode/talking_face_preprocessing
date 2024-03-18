@@ -166,6 +166,7 @@ python extract_audio_features.py \
 * The result shape is `(25, T, 1024)`, 25 means all hidden layers including the one audio feature extraction plus 24 hidden layers. You can change code get specific layers, such as last layer, for training.
 * The purpose for extract all layers is that we trained on `weighted sum` strategies in [this project](https://github.com/liutaocode/DiffDub).
 * Currently, we only have tested feature extraction on hubert model.
+* If you audio is long ( > 120 seconds), please set computed_device from `cuda` to `cpu` to avoid GPU out-of-memory.
 * If you want to extract MFCC feature, you can use `python_speech_features`.
 
 

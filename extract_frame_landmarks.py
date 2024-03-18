@@ -19,6 +19,7 @@ def save_lmds(dict_item, txt_path):
             obj.write("\n")
 
 def main(from_dir, lmd_output_dir, skip_existing):
+    os.makedirs(lmd_output_dir, exist_ok=True)
     device = torch.device("cuda:0")
     torchlm.runtime.bind(faceboxesv2(device=device))  
 
@@ -44,7 +45,9 @@ def main(from_dir, lmd_output_dir, skip_existing):
             frame = cv2.imread(os.path.join(frames_path, image_name))
             landmarks, bboxes = torchlm.runtime.forward(frame)
 
-            assert len(bboxes) != 0
+            if len(bboxes) == 0:
+                print(f"{clip_dir}'s {image_name} is missing, later frames will not be processed!")
+                break
 
             current_dict[image_name] = [(x, y) for x, y in landmarks[0][:68]]
         save_lmds(current_dict, lmd_path)
