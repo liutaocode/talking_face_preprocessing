@@ -113,7 +113,7 @@ Landmarks are generated into a text file with the same name as the video. Each l
 
 ## Face Orientation Angles
 
-Facial orientation involves three-dimensional poses: pitch (tilt up and down), yaw (turn left and right), and roll (tilt side to side).
+Facial orientation involves three-dimensional poses: pitch (tilt up and down), yaw (turn left and right), and roll (tilt side to side), as shown in the figure below.
 
 <img src='asserts/facial_orientation.png' width=50% />
 
@@ -128,13 +128,15 @@ python extract_face_orientation.py \
 
 ```
 
+The code models will perform visualization in deafult for each video, below is a visualization example that clearly represents the facial orientation information.
+
 <img src='asserts/FAzSK8PLmGI_pose.gif' width=40% />
 
 The range of angles for yaw, pitch, and roll extends from -180 to +180 degrees. However, in practice, for facial orientations, it is predominantly within the range of -90 to +90 degrees. Below is an example that displays the actual dataset for a single image.
 
 <img src='asserts/VoxCeleb2_id03765_mCkWsZ4uVDM_00169_000172.png' width=40% />
 
-Other Tools (we have not tested) can also be used to extract facial orientation: [OpenFace](https://github.com/TadasBaltrusaitis/OpenFace). Besides, [GAIA](https://gaiavatar.github.io/gaia/) mentioned that they uses [3DDFA](https://github.com/cleardusk/3DDFA). [EMO](https://humanaigc.github.io/emote-portrait-alive/) utlizes [mediapipe](https://github.com/google/mediapipe/) and get pose speed. [DAE-talker](https://arxiv.org/abs/2303.17550) utlizes [this tool](https://pypi.org/project/headpose/).
+Other tools (which we have not tested) can also be used to extract facial orientation: [OpenFace](https://github.com/TadasBaltrusaitis/OpenFace). Additionally, [GAIA](https://gaiavatar.github.io/gaia/) has mentioned that they use [3DDFA](https://github.com/cleardusk/3DDFA). [EMO](https://humanaigc.github.io/emote-portrait-alive/) utilizes [mediapipe](https://github.com/google/mediapipe/) to obtain pose speed. [DAE-talker](https://arxiv.org/abs/2303.17550) utilizes [this tool](https://pypi.org/project/headpose/).
 
 ## (Optional) Facial Action Unit (FAU) Extraction 
 
