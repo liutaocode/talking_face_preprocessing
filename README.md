@@ -113,11 +113,11 @@ Landmarks are generated into a text file with the same name as the video. Each l
 
 ## Face Orientation Angles
 
-Facial orientation includes 3D poses: pitch, yaw, and roll.
+Facial orientation involves three-dimensional poses: pitch (tilt up and down), yaw (turn left and right), and roll (tilt side to side).
 
 <img src='asserts/facial_orientation.png' width=50% />
 
-Follow the instructions [3DDFA_V2](https://github.com/cleardusk/3DDFA_V2) and build the environment. Copy the path link to `.3ddfav2_path` and run the following codes to get pose angles.
+Follow the instructions at [3DDFA_V2](https://github.com/cleardusk/3DDFA_V2) to build the environment. Copy the path link to `.3ddfav2_path` and run the following code to obtain pose angles.
 
 ```bash
 
@@ -130,7 +130,7 @@ python extract_face_orientation.py \
 
 <img src='asserts/FAzSK8PLmGI_pose.gif' width=40% />
 
-The angle range of yaw, pitch, and roll is from -180 to +180 degrees. In reality, for faces, it is mainly concentrated from -90 to +90. Below is an example showing the actual dataset for a single image.
+The range of angles for yaw, pitch, and roll extends from -180 to +180 degrees. However, in practice, for facial orientations, it is predominantly within the range of -90 to +90 degrees. Below is an example that displays the actual dataset for a single image.
 
 <img src='asserts/VoxCeleb2_id03765_mCkWsZ4uVDM_00169_000172.png' width=40% />
 
