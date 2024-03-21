@@ -57,7 +57,7 @@ python extract_cropped_faces.py \
 
 ```
 
-![cropped face sample](asserts/FAzSK8PLmGI_raw.gif)
+<img src='asserts/FAzSK8PLmGI_raw.gif' width=40% />
 
 ## Conversion to Specified Format
 
@@ -86,7 +86,7 @@ python extract_raw_video_data.py \
 ## Face Landmark Detection
 The purpose of this step is to obtain 68 2D facial landmarks, as illustrated in the figure below. For reference, please see the image provided.
 
-<img src='asserts/landmarks.png' width=50% />
+<img src='asserts/landmarks.png' width=40% />
 
 
 Data flow: from `data_processing/specified_formats/videos/video_frames/` to `data_processing/specified_formats/videos/landmarks/`
