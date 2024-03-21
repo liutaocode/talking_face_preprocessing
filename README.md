@@ -111,6 +111,11 @@ Landmarks are generated into a text file with the same name as the video. Each l
 
 ```
 
+Here is an example of a successfully detected case:
+
+<img src='asserts/WRA_BillCassidy0_000.gif' width=40% />
+
+
 ## Face Orientation Angles
 
 Facial orientation involves three-dimensional poses: pitch (tilt up and down), yaw (turn left and right), and roll (tilt side to side), as shown in the figure below.
@@ -182,6 +187,9 @@ python extract_audio_features.py \
 - [ ] Add detailed Environment Config
 - [ ] Visualized Jupyter Code
 
+## Notes
+
+The test cases on this page are derived from the HDTF or VoxCeleb datasets and are for academic demonstration purposes only.
 
 ## Acknowledgements
 
