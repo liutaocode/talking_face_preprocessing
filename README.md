@@ -130,6 +130,10 @@ python extract_face_orientation.py \
 
 ![cropped face pose](asserts/FAzSK8PLmGI_pose.gif)
 
+The range of yaw, pitch, and roll is from -180 to +180. In reality, for faces, it is mainly concentrated from -90 to +90. Below is an example showing the actual dataset for a single image.
+
+![cropped face pose](asserts/VoxCeleb2_id03765_mCkWsZ4uVDM_00169_000172.png)
+
 
 Other Tools (we have not tested) can also be used to extract facial orientation: [OpenFace](https://github.com/TadasBaltrusaitis/OpenFace). Besides, [GAIA](https://gaiavatar.github.io/gaia/) mentioned that they uses [3DDFA](https://github.com/cleardusk/3DDFA). [EMO](https://humanaigc.github.io/emote-portrait-alive/) utlizes [mediapipe](https://github.com/google/mediapipe/) and get pose speed. [DAE-talker](https://arxiv.org/abs/2303.17550) utlizes [this tool](https://pypi.org/project/headpose/).
 
