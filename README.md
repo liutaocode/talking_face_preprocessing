@@ -189,7 +189,7 @@ python extract_audio_features.py \
 
 ## Notes
 
-The test cases on this page are derived from the HDTF or VoxCeleb datasets and are for academic demonstration purposes only.
+The examples provided herein are based on the HDTF or VoxCeleb datasets and are intended solely for educational and academic research purposes. Please do not use them for any other purposes.
 
 ## Acknowledgements
 
