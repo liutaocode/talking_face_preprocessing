@@ -36,6 +36,8 @@ python filter_videos_rough.py \
   --min_size 10 
 ```
 
+There are some other filtering algorithms such as hand detection (hand_detection.py) and blur detection (blur_detection.py). We have not thoroughly checked these codes, but you can refer to them and build your own filter algorithms, especially when you aim to train models using diffusion-based methods like [EMO](https://humanaigc.github.io/emote-portrait-alive/).
+
 Upon completion of this step, you will have obtained the raw video data. An example of such data can be found at `data_processing/raw_data/FAzSK8PLmGI.mp4`. The goal of this step is to build a dataset similar to the [HDTF](https://github.com/MRzzm/HDTF) dataset.
 
 

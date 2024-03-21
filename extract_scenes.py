@@ -7,6 +7,7 @@ from glob import glob
 
 def split_video_into_scenes(video_path, output_directory, threshold):
     
+    os.makedirs(output_directory, exist_ok=True)
     if any(fname.startswith(basename(video_path)) for fname in os.listdir(output_directory)):
         print(f'{basename(video_path)} exists, pass.')
         return

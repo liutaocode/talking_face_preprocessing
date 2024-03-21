@@ -9,6 +9,8 @@ def convert_video_to_25fps(source_folder, target_folder):
         if video_file.endswith('.mp4'):
             source_path = os.path.join(source_folder, video_file)
             target_path = os.path.join(target_folder, video_file)
+            if os.path.exists(target_path):
+                continue
             subprocess.run(['ffmpeg', '-i', source_path, '-r', '25', target_path, '-y'])
 
 def convert_audio_to_16k(source_folder, target_folder):
@@ -19,6 +21,8 @@ def convert_audio_to_16k(source_folder, target_folder):
             source_path = os.path.join(source_folder, video_file)
             audio_file = os.path.splitext(video_file)[0] + '.wav'
             target_path = os.path.join(target_folder, audio_file)
+            if os.path.exists(target_path):
+                continue
             subprocess.run(['ffmpeg', '-i', source_path, '-ar', '16000', target_path, '-y'])
 
 def extract_frames_to_png(source_folder, target_folder):
@@ -29,6 +33,8 @@ def extract_frames_to_png(source_folder, target_folder):
             source_path = os.path.join(source_folder, video_file)
             frame_folder = os.path.splitext(video_file)[0]
             frame_target_folder = os.path.join(target_folder, frame_folder)
+            if os.path.exists(frame_target_folder):
+                continue
             if not os.path.exists(frame_target_folder):
                 os.makedirs(frame_target_folder)
             subprocess.run(['ffmpeg', '-i', source_path, '-vf', 'fps=25', os.path.join(frame_target_folder, '%06d.png'), '-y'])
