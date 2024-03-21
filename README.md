@@ -128,7 +128,7 @@ python extract_face_orientation.py \
 
 ```
 
-The code models will perform visualization in deafult for each video, below is a visualization example that clearly represents the facial orientation information.
+The code models will perform visualization in default for each video, below is a visualization example that clearly represents the facial orientation information.
 
 <img src='asserts/FAzSK8PLmGI_pose.gif' width=40% />
 
