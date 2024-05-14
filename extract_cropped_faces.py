@@ -60,7 +60,8 @@ def main(from_dir_prefix, output_dir_prefix, expanded_ratio, skip_per_frame):
             
         if not (x_center_lists and y_center_lists and width_lists and height_lists):
             print(f"Face may not exist, please check the video: {mp4_name}")
-            exit(0)
+            if args.debug:
+                exit(0)
             continue
 
         x_center = sorted(x_center_lists)[len(x_center_lists) // 2]
@@ -100,11 +101,10 @@ if __name__ == "__main__":
     parser.add_argument('--output_dir_prefix', type=str, default='data_processing/cropped_faces/',
                         help='output directory where cropped faces will be stored')
     parser.add_argument('--expanded_ratio', type=float, default=0.6,
-                        help='ratio to expand the bounding box for cropping')
+                        help='ratio to expand the bounding box for cropping, the larger the value, the smaller the face')
     parser.add_argument('--skip_per_frame', type=int, default=25,
-                        help='number of frames to skip during processing')
-    parser.add_argument('--debug', action='store_true', help='Enable debug mode')
-
+                        help='number of frames to skip before detecting the face again, here it defaults to detecting the face position every 25 frames, only a rough calculation of the face position in the frame is needed, not too large')
+    parser.add_argument('--debug', action='store_true', help='Enable debug mode, if you want to print the ffmpeg command, you can turn on this switch, note that it will automatically exit when an exception occurs after enabling.')
     args = parser.parse_args()
 
     main(args.from_dir_prefix, args.output_dir_prefix, args.expanded_ratio, args.skip_per_frame)
