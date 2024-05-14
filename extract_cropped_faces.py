@@ -61,7 +61,7 @@ def main(from_dir_prefix, output_dir_prefix, expanded_ratio, skip_per_frame):
         if not (x_center_lists and y_center_lists and width_lists and height_lists):
             print(f"Face may not exist, please check the video: {mp4_name}")
             if args.debug:
-                exit(0)
+                exit(1)
             continue
 
         x_center = sorted(x_center_lists)[len(x_center_lists) // 2]
@@ -90,9 +90,11 @@ def main(from_dir_prefix, output_dir_prefix, expanded_ratio, skip_per_frame):
                 f'-c:a copy {to_mp4_file_path} -y -loglevel quiet'
             )
         
-        if os.system(cmd) != 0 and args.debug:
+        if os.system(cmd) != 0:
             print(f"Error executing command: {cmd}, please check")
-            break
+            if args.debug:
+                exit(1)
+            continue
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some integers.')
