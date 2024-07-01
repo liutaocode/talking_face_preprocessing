@@ -12,7 +12,7 @@ Current support the following features:
 
 ## (Optional) Scene Detection
 
-<img src='asserts/full_video.png' width=60% />
+<img src='assets/full_video.png' width=60% />
 
 If your dataset is downloaded from the web, it may consist of full-frame images (where the face occupies a small portion) and may include non-continuous frames.
 
@@ -57,7 +57,7 @@ python extract_cropped_faces.py \
 
 ```
 
-<img src='asserts/FAzSK8PLmGI_raw.gif' width=40% />
+<img src='assets/FAzSK8PLmGI_raw.gif' width=40% />
 
 ## Conversion to Specified Format
 
@@ -86,7 +86,7 @@ python extract_raw_video_data.py \
 ## Face Landmark Detection
 The purpose of this step is to obtain 68 2D facial landmarks, as illustrated in the figure below. For reference, please see the image provided.
 
-<img src='asserts/landmarks.png' width=40% />
+<img src='assets/landmarks.png' width=40% />
 
 
 Data flow: from `data_processing/specified_formats/videos/video_frames/` to `data_processing/specified_formats/videos/landmarks/`
@@ -113,14 +113,14 @@ Landmarks are generated into a text file with the same name as the video. Each l
 
 Here is an example of a successfully detected case:
 
-<img src='asserts/WRA_BillCassidy0_000.gif' width=40% />
+<img src='assets/WRA_BillCassidy0_000.gif' width=40% />
 
 
 ## Face Orientation Angles
 
 Facial orientation involves three-dimensional poses: pitch (tilt up and down), yaw (turn left and right), and roll (tilt side to side), as shown in the figure below.
 
-<img src='asserts/facial_orientation.png' width=50% />
+<img src='assets/facial_orientation.png' width=50% />
 
 Follow the instructions at [3DDFA_V2](https://github.com/cleardusk/3DDFA_V2) to build the environment. Copy the path link to `.3ddfav2_path` and run the following code to obtain pose angles.
 
@@ -135,11 +135,11 @@ python extract_face_orientation.py \
 
 The code models will perform visualization in default for each video, below is a visualization example that clearly represents the facial orientation information.
 
-<img src='asserts/FAzSK8PLmGI_pose.gif' width=40% />
+<img src='assets/FAzSK8PLmGI_pose.gif' width=40% />
 
 The range of angles for yaw, pitch, and roll extends from -180 to +180 degrees. However, in practice, for facial orientations, it is predominantly within the range of -90 to +90 degrees. Below is an example that displays the actual dataset for a single image.
 
-<img src='asserts/VoxCeleb2_id03765_mCkWsZ4uVDM_00169_000172.png' width=40% />
+<img src='assets/VoxCeleb2_id03765_mCkWsZ4uVDM_00169_000172.png' width=40% />
 
 Other tools (which we have not tested) can also be used to extract facial orientation: [OpenFace](https://github.com/TadasBaltrusaitis/OpenFace). Additionally, [GAIA](https://gaiavatar.github.io/gaia/) has mentioned that they use [3DDFA](https://github.com/cleardusk/3DDFA). [EMO](https://humanaigc.github.io/emote-portrait-alive/) utilizes [mediapipe](https://github.com/google/mediapipe/) to obtain pose speed. [DAE-talker](https://arxiv.org/abs/2303.17550) utilizes [this tool](https://pypi.org/project/headpose/).
 
@@ -176,7 +176,7 @@ python extract_audio_features.py \
 
 * The purpose of padding_to_align_audio is to pad the end of the audio to match the dimensionality, with the goal of maintaining consistency with video frames for convenient training.
 * The result shape is `(25, T, 1024)`, 25 means all hidden layers including the one audio feature extraction plus 24 hidden layers. You can change code get specific layers, such as last layer, for training.
-* The purpose for extract all layers is that we trained on `weighted sum` strategies in [this project](https://github.com/liutaocode/DiffDub).
+* The purpose for extract all layers is that we trained on `weighted sum` strategies in [diffdub](https://github.com/liutaocode/DiffDub) and [anitalker](https://github.com/X-LANCE/AniTalker).
 * Currently, we only have tested feature extraction on hubert model.
 * If your audio is long ( > 120 seconds), please set computed_device from `cuda` to `cpu` to avoid GPU out-of-memory.
 * If you want to extract MFCC feature, you can use `python_speech_features`.

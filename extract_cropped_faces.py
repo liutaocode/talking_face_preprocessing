@@ -6,8 +6,9 @@ from torchlm.tools import faceboxesv2
 from torchlm.models import pipnet
 from tqdm import tqdm
 import os
+import random
 
-def main(from_dir_prefix, output_dir_prefix, expanded_ratio, skip_per_frame):
+def main(from_dir_prefix, output_dir_prefix, expanded_ratio, skip_per_frame, shuffle):
     os.makedirs(output_dir_prefix, exist_ok=True)
     
     device = torch.device("cuda:0")
@@ -19,8 +20,13 @@ def main(from_dir_prefix, output_dir_prefix, expanded_ratio, skip_per_frame):
             map_location=device, checkpoint=None
         )
     )
-
-    for mp4_name in tqdm(os.listdir(from_dir_prefix)):
+    if shuffle:
+        mp4_files = os.listdir(from_dir_prefix)
+        random.shuffle(mp4_files)
+    else:
+        mp4_files = os.listdir(from_dir_prefix)
+    
+    for mp4_name in tqdm(mp4_files):
         from_mp4_file_path = os.path.join(from_dir_prefix, mp4_name)
         to_mp4_file_path = os.path.join(output_dir_prefix, mp4_name)
         
@@ -107,6 +113,7 @@ if __name__ == "__main__":
     parser.add_argument('--skip_per_frame', type=int, default=25,
                         help='number of frames to skip before detecting the face again, here it defaults to detecting the face position every 25 frames, only a rough calculation of the face position in the frame is needed, not too large')
     parser.add_argument('--debug', action='store_true', help='Enable debug mode, if you want to print the ffmpeg command, you can turn on this switch, note that it will automatically exit when an exception occurs after enabling.')
+    parser.add_argument('--shuffle', action='store_true', help='Enable shuffling of the input data')
     args = parser.parse_args()
 
-    main(args.from_dir_prefix, args.output_dir_prefix, args.expanded_ratio, args.skip_per_frame)
+    main(args.from_dir_prefix, args.output_dir_prefix, args.expanded_ratio, args.skip_per_frame, args.shuffle)

@@ -89,6 +89,8 @@ def main(args):
         pose_lists = []
         for i, frame_path in tqdm(enumerate(frame_filepaths)):
             frame = cv2.imread(frame_path)
+            if frame is None:
+                break
             frame_bgr = frame[..., ::-1]  # RGB->BGR
 
             if i == 0:

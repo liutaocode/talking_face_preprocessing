@@ -1,6 +1,6 @@
 import os
 import argparse
-
+# from tqdm import tqdm 
 # Set up argument parser
 # the reason using FaceLandmarkImg is from : https://github.com/TadasBaltrusaitis/OpenFace/issues/149 (for resolving order ambiguity)
 parser = argparse.ArgumentParser(description='Extract Facial Action Units using OpenFace.')
@@ -13,5 +13,9 @@ args = parser.parse_args()
 
 for filename in os.listdir(args.from_dir_path):
     # python 2.7 format (docker)
-    cmd = '{} -fdir {} -out_dir {} -aus'.format(args.openface_bin, os.path.join(args.from_dir_path, filename), os.path.join(args.to_dir_path, filename))
+    print(filename)
+    saved_to_dir = os.path.join(args.to_dir_path, filename)
+    if os.path.exists(saved_to_dir):
+        continue
+    cmd = '{} -fdir {} -out_dir {} -aus'.format(args.openface_bin, os.path.join(args.from_dir_path, filename), saved_to_dir)
     os.system(cmd)

@@ -29,7 +29,9 @@ def main(from_dir, lmd_output_dir, skip_existing):
                 meanface_type="300w", map_location=device, checkpoint=None)
     ) 
 
-    for clip_dir in os.listdir(from_dir):
+    clip_dirs = os.listdir(from_dir)
+    np.random.shuffle(clip_dirs)
+    for clip_dir in clip_dirs:
         lmd_path = os.path.join(lmd_output_dir, f'{clip_dir}.txt')
 
         if skip_existing and os.path.exists(lmd_path):
@@ -39,10 +41,13 @@ def main(from_dir, lmd_output_dir, skip_existing):
         img_lists = sorted(os.listdir(frames_path))
 
         current_dict = {}
+        print(img_lists)
         for image_name in tqdm(img_lists):
-            if not image_name.endswith('.png'):
+            if not (image_name.endswith('.png') or image_name.endswith('.jpg') or image_name.endswith('.jpeg')):
                 continue
             frame = cv2.imread(os.path.join(frames_path, image_name))
+            if frame is None:
+                break
             landmarks, bboxes = torchlm.runtime.forward(frame)
 
             if len(bboxes) == 0:

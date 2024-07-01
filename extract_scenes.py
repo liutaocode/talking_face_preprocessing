@@ -41,6 +41,8 @@ if __name__ == "__main__":
 
     video_paths = glob(os.path.join(args.from_directory, '*.mp4'))
     
+    os.makedirs(args.output_directory, exist_ok=True)
+    
     for video_path in video_paths:
         print(f'Processing {video_path}')
         split_video_into_scenes(video_path, args.output_directory, args.threshold)
