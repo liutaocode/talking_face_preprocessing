@@ -160,12 +160,12 @@ python extract_action_units.py \
 
 ## Audio Feature Extraction
 
-### MFCC 
+### MFCC  (100 hz)
 
 MFCC stands for Mel-frequency cepstral coefficients. It can quickly help us with code testing without the need to install many environments. The output shape of audio_feature will be `(T, 39)`. This feature is not robust and is only suitable for early code testing. For detailed usage, please refer to [mfcc_feature_example.py](libs/mfcc_feature_example.py).
 
 
-### Hubert Feature with Weighted-sum
+### Hubert Feature with Weighted-sum  (50 hz)
 
 Before extraction, please make sure that all audio files have a sampling rate of `16k` Hz. and download the weights from [URL](https://github.com/TencentGameMate/chinese_speech_pretrain) and put them into weights dir. Although this model was pre-trained on 10,000 hours of Chinese data as unsupervised training data, we have also found that it can generalize to other languages as well.
 
@@ -187,7 +187,7 @@ python extract_audio_features.py \
 * Currently, we only have tested feature extraction on hubert model.
 * If your audio is long ( > 120 seconds), please set computed_device from `cuda` to `cpu` to avoid GPU out-of-memory.
 
-### Whisper Encoder
+### Whisper Encoder (50 hz)
 
 ```
 python extract_audio_features_whisper
@@ -196,13 +196,15 @@ python extract_audio_features_whisper
 - The detailed code can be found [here](https://github.com/X-LANCE/SLAM-LLM/blob/3b620ade1ad2a87a43a4a4f8f2f8a6b6c45fc02c/src/slam_llm/models/encoder.py#L7)
 - There are some issues here that still need to be confirmed. Extract for a fixed 30 seconds, and check if it's effective for shorter durations. (20240731,updates,I found that it has minor impact on training digital talking heads)
 
-### VQ-wav2vec Encoder [TODO]
+### VQ-wav2vec Encoder (100 hz) [TODO]
 
 - The vocabulary comprises 23,632 tokens, formed by merging two sets of 320 vector quantization (VQ) groups. The original mapping, extracted from [feats_ctxt2v.zip](https://huggingface.co/datasets/cantabile-kwok/libritts-all-kaldi-data/resolve/main/feats_ctxt2v.zip), can be found in the [label2vqidx](assets/label2vqidx) file.
 
-## ASR (Phoneme Extraction)
+## ASR (Phoneme Extraction) [TODO]
 
+```
 extract_asr_features.py
+```
 
 ## TODO lists
 
