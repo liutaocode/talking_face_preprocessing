@@ -187,16 +187,22 @@ python extract_audio_features.py \
 * Currently, we only have tested feature extraction on hubert model.
 * If your audio is long ( > 120 seconds), please set computed_device from `cuda` to `cpu` to avoid GPU out-of-memory.
 
-### Whisper Encoder (TODO)
+### Whisper Encoder
 
 ```
-import whisper
-encoder = whisper.load_model(name=openai_whisper_model, device='cpu').encoder 
+python extract_audio_features_whisper
 ```
 
 - The detailed code can be found [here](https://github.com/X-LANCE/SLAM-LLM/blob/3b620ade1ad2a87a43a4a4f8f2f8a6b6c45fc02c/src/slam_llm/models/encoder.py#L7)
-- There are some issues here that still need to be confirmed. Extract for fixed 30 seconds, and check if it's effective for shorter durations.
+- There are some issues here that still need to be confirmed. Extract for a fixed 30 seconds, and check if it's effective for shorter durations. (20240731,updates,I found that it has minor impact on training digital talking heads)
 
+### VQ-wav2vec Encoder [TODO]
+
+- The vocabulary comprises 23,632 tokens, formed by merging two sets of 320 vector quantization (VQ) groups. The original mapping, extracted from [feats_ctxt2v.zip](https://huggingface.co/datasets/cantabile-kwok/libritts-all-kaldi-data/resolve/main/feats_ctxt2v.zip), can be found in the [label2vqidx](assets/label2vqidx) file.
+
+## ASR (Phoneme Extraction)
+
+extract_asr_features.py
 
 ## TODO lists
 
@@ -217,3 +223,5 @@ The examples provided herein are based on the HDTF or VoxCeleb datasets and are 
 * https://github.com/TadasBaltrusaitis/OpenFace
 * https://github.com/cleardusk/3DDFA_V2
 * https://www.robots.ox.ac.uk/~vgg/data/voxceleb/
+* https://github.com/cpdu/unicats
+* https://github.com/X-LANCE/SLAM-LLM
