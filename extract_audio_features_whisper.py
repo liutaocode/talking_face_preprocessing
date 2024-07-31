@@ -29,7 +29,7 @@ def main(args):
         duration = librosa.get_duration(y=audio, sr=sr)
         if duration > 60:
             print(f"Skipping {audio_name} as it is longer than 1 minute.")
-            continue
+
         audio = whisper.pad_or_trim(audio.flatten()) # as least 30s. you can slide to your specific duration at the usage.
         mel = whisper.log_mel_spectrogram(audio)
         
@@ -39,7 +39,7 @@ def main(args):
     
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract audio features using a pre-trained HuBERT model.")
-    parser.add_argument("--model_prefix", type=str, default='weights/whispermodel', help=".")
+    parser.add_argument("--model_prefix", type=str, default='weights/whispermodel', help="Download large-v2.pt to this path")
     parser.add_argument("--model_name", type=str, default='large-v2', help=".")
     parser.add_argument("--audio_dir_path", type=str, default='./audio_samples/raw_audios/', help="Directory containing raw audio files.")
     parser.add_argument("--audio_feature_saved_path", type=str, default='./audio_samples/audio_features/', help="Directory where extracted audio features will be saved.")
