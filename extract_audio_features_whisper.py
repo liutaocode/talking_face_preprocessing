@@ -26,9 +26,12 @@ def main(args):
             continue
 
         audio, sr = librosa.load(audio_path, sr=16000)
-        duration = librosa.get_duration(y=audio, sr=sr)
-        if duration > 60:
-            print(f"Skipping {audio_name} as it is longer than 1 minute.")
+
+        # you can skip too long audio to avoid OOM
+        # duration = librosa.get_duration(y=audio, sr=sr)
+        # if duration > 60:
+        #     print(f"Skipping {audio_name} as it is longer than 1 minute.")
+
 
         audio = whisper.pad_or_trim(audio.flatten()) # as least 30s. you can slide to your specific duration at the usage.
         mel = whisper.log_mel_spectrogram(audio)
