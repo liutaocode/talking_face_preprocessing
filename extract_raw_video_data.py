@@ -23,7 +23,7 @@ def convert_audio_to_16k(source_folder, target_folder):
             target_path = os.path.join(target_folder, audio_file)
             if os.path.exists(target_path):
                 continue
-            subprocess.run(['ffmpeg', '-i', source_path, '-ar', '16000', target_path, '-y'])
+            subprocess.run(['ffmpeg', '-i', source_path, '-ar', '16000', '-ac', '1', target_path, '-y'])
 
 def extract_frames_to_png(source_folder, target_folder):
     if not os.path.exists(target_folder):

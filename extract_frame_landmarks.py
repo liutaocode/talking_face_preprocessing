@@ -18,7 +18,7 @@ def save_lmds(dict_item, txt_path):
                 obj.write(f"{int(x)}_{int(y)} ")
             obj.write("\n")
 
-def main(from_dir, lmd_output_dir, skip_existing):
+def main(from_dir, lmd_output_dir, skip_existing, check_and_padding):
     os.makedirs(lmd_output_dir, exist_ok=True)
     device = torch.device("cuda:0")
     torchlm.runtime.bind(faceboxesv2(device=device))  
@@ -31,17 +31,29 @@ def main(from_dir, lmd_output_dir, skip_existing):
 
     clip_dirs = os.listdir(from_dir)
     np.random.shuffle(clip_dirs)
-    for clip_dir in clip_dirs:
+    for clip_dir in tqdm(clip_dirs, desc="Processing clips"):
         lmd_path = os.path.join(lmd_output_dir, f'{clip_dir}.txt')
+        frames_path = os.path.join(from_dir, clip_dir)
 
-        if skip_existing and os.path.exists(lmd_path):
+        img_lists = sorted(os.listdir(frames_path))
+        if check_and_padding and os.path.exists(lmd_path):
+            
+            with open(lmd_path, 'r') as file:
+                lines = file.readlines()
+                if len(img_lists) == len(lines):
+                    continue
+                else:
+                    print(f'{lmd_path} has not aligned landmark size.{len(img_lists)}!={len(lines)} checking....')
+
+        elif skip_existing and os.path.exists(lmd_path):
             continue
 
-        frames_path = os.path.join(from_dir, clip_dir)
-        img_lists = sorted(os.listdir(frames_path))
+        
+        # img_lists = sorted(os.listdir(frames_path))
 
         current_dict = {}
-        print(img_lists)
+
+        last_landmarks = None
         for image_name in tqdm(img_lists):
             if not (image_name.endswith('.png') or image_name.endswith('.jpg') or image_name.endswith('.jpeg')):
                 continue
@@ -51,10 +63,21 @@ def main(from_dir, lmd_output_dir, skip_existing):
             landmarks, bboxes = torchlm.runtime.forward(frame)
 
             if len(bboxes) == 0:
-                print(f"{clip_dir}'s {image_name} is missing, later frames will not be processed!")
-                break
+                
+
+                if check_and_padding:
+                    
+                    if last_landmarks is None:
+                        print(f"{clip_dir}'s {image_name} does not have first frame. Passing ...")
+                        break
+                    print(f"{clip_dir}'s {image_name} padds the missing landmarks using last frames.")
+                    landmarks = last_landmarks
+                else:
+                    print(f"{clip_dir}'s {image_name} is missing, later frames will not be processed!")
+                    break
 
             current_dict[image_name] = [(x, y) for x, y in landmarks[0][:68]]
+            last_landmarks = landmarks
         save_lmds(current_dict, lmd_path)
 
 if __name__ == "__main__":
@@ -65,6 +88,8 @@ if __name__ == "__main__":
                         help='Directory where landmarks will be saved')
     parser.add_argument('--skip_existing', action='store_true',
                         help='Skip processing if landmarks file already exists')
+    parser.add_argument('--check_and_padding', action='store_true',
+                        help='Check and pad frames.')
     args = parser.parse_args()
 
-    main(args.from_dir, args.lmd_output_dir, args.skip_existing)
+    main(args.from_dir, args.lmd_output_dir, args.skip_existing, args.check_and_padding)

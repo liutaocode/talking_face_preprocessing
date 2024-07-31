@@ -70,6 +70,10 @@ def main(args):
         
         y_p_r_path = os.path.join(y_p_r_prefix, f"{clip_name}.npy")
         if os.path.exists(y_p_r_path):
+            if args.check_mode:
+                gaze_npy = np.load(y_p_r_path)
+                if gaze_npy.shape[0] == 1:
+                    import pdb;pdb.set_trace()
             continue
 
         video_wfp = os.path.join(visualization_dir, clip_name + ".mp4")
@@ -107,7 +111,11 @@ def main(args):
                 param_lst, roi_box_lst , _= tddfa(frame_bgr, [ver], crop_policy='landmark')
                 ver = tddfa.recon_vers(param_lst, roi_box_lst, dense_flag=dense_flag)[0]
             else:
-                param_lst, roi_box_lst, _ = tddfa(frame_bgr, [pre_ver], crop_policy='landmark')
+                try:
+                    param_lst, roi_box_lst, _ = tddfa(frame_bgr, [pre_ver], crop_policy='landmark')
+                except Exception as e:
+                    print(f"Error processing frame {i} in clip {clip_name}: {e}")
+                    break
 
                 roi_box = roi_box_lst[0]
                 # todo: add confidence threshold to judge the tracking is failed
@@ -147,6 +155,7 @@ if __name__ == '__main__':
     parser.add_argument('-m', '--mode', default='gpu', type=str, help='gpu or cpu mode')
     parser.add_argument('-o', '--opt', type=str, default='pose', choices=['2d_sparse', '3d', 'pose'])
     parser.add_argument('--onnx', action='store_true', default=False)
-
+    parser.add_argument('--check_mode', action='store_true',
+                        help='Check missing gazes.')
     args = parser.parse_args()
     main(args)
