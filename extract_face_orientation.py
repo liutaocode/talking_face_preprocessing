@@ -92,10 +92,10 @@ def main(args):
         
         pose_lists = []
         for i, frame_path in tqdm(enumerate(frame_filepaths)):
-            frame = cv2.imread(frame_path)
-            if frame is None:
+            frame_bgr = cv2.imread(frame_path)
+
+            if frame_bgr is None:
                 break
-            frame_bgr = frame[..., ::-1]  # RGB->BGR
 
             if i == 0:
                 # the first frame, detect face, here we only use the first face, you can change depending on your need
@@ -131,6 +131,12 @@ def main(args):
 
             pre_ver = ver  
 
+
+            # NOTE: Add this function to 3ddfav2: utils/pose.py
+            # def draw_pose(img, param_lst, ver_lst):
+            #     P, pose = calc_pose(param_lst[0])
+            #     img = plot_pose_box(img, P, ver_lst)
+            #     return img, pose
 
             res, pose = draw_pose(cv2.cvtColor(frame_bgr, cv2.COLOR_RGB2BGR), param_lst, ver)
             pose_lists.append(pose)
