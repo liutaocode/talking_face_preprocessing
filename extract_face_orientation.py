@@ -138,7 +138,7 @@ def main(args):
             #     img = plot_pose_box(img, P, ver_lst)
             #     return img, pose
 
-            res, pose = draw_pose(cv2.cvtColor(frame_bgr, cv2.COLOR_RGB2BGR), param_lst, ver)
+            res, pose = draw_pose(frame_bgr, param_lst, ver)
             pose_lists.append(pose)
             
             writer.append_data(cv2.cvtColor(res, cv2.COLOR_BGR2RGB))
